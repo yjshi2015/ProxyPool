@@ -20,5 +20,4 @@ class BaseCrawler(object):
             html = self.fetch(url)
             for proxy in self.parse(html):
                 logger.info(f'fetched proxy {proxy.string()} from {url}')
-                # todo 啥意思
                 yield proxy

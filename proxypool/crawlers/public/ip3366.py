@@ -8,15 +8,16 @@ BASE_URL = 'http://www.ip3366.net/free/?stype={stype}&page={page}'
 
 class IP3366Crawler(BaseCrawler):
 
-    urls = [BASE_URL.format(stype=stype,page=i) for stype in range(1,3) for i in range(1, 8)]
+    urls = [BASE_URL.format(stype=stype,page=i) for stype in range(1,3) for i in range(1, 11)]
 
     def parse(self, html):
-        ip_address = re.compile('<str>\s*<td>(.*?)</td>\s*<td>(.*?)</td>')
+        ip_address = re.compile('<tr>\s*<td>(.*?)</td>\s*<td>(.*?)</td>')
         # \s * 匹配空格，起到换行作用
         re_ip_address = ip_address.findall(html)
         for address, port in re_ip_address:
             proxy = Proxy(host=address.strip(), port=int(port.strip()))
-            yield
+            yield proxy
+
 
 if __name__ == '__main__':
     crawler = IP3366Crawler()
