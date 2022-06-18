@@ -111,14 +111,15 @@ class RedisClient(object):
           """
         return convert_proxy_or_proxies(self.db.zrangebyscore(REDIS_KEY, PROXY_SCORE_MIN, PROXY_SCORE_MAX))
 
-    def batch(self, start, end) -> List[Proxy]:
+    def batch(self, cursor, count) -> List[Proxy]:
         """
         get batch of proxies
         :param cursor: scan cursor
         :param count: scan count
         :return: list of proxies
         """
-        return convert_proxy_or_proxies(self.db.zrevrange(REDIS_KEY, start, end - 1))
+        cursor, proxies = self.db.zscan(REDIS_KEY, cursor, count=count)
+        return cursor, convert_proxy_or_proxies([i[0] for i in proxies])
 
 
 if __name__ == '__main__':
