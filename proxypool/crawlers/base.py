@@ -15,10 +15,10 @@ class BaseCrawler(object):
         except requests.ConnectionError:
             return
 
-    def crawl(self):
+    def crawl(self, **kwargs):
         for url in self.urls:
             logger.info(f'fetching {url}')
-            html = self.fetch(url)
+            html = self.fetch(url, **kwargs)
             for proxy in self.parse(html):
                 logger.info(f'fetched proxy {proxy.string()} from {url}')
                 yield proxy
