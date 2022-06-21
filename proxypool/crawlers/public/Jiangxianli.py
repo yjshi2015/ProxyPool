@@ -6,6 +6,8 @@ from proxypool.crawlers.base import BaseCrawler
 
 
 BASE_URL = 'https://ip.jiangxianli.com/api/proxy_ips?page={page}'
+
+
 class Jiangxianli(BaseCrawler):
     MAX_PAGE = 3
     urls = [BASE_URL.format(page=page) for page in range(1, MAX_PAGE)]

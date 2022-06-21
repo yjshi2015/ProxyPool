@@ -2,6 +2,7 @@ from retrying import retry
 import requests
 from loguru import logger
 
+
 class BaseCrawler(object):
     urls = []
 
