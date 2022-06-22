@@ -47,7 +47,7 @@ REDIS_CONNECTION_STRING = env.str('PROXYPOOL_REDIS_CONNECTION_STRING',
                                   env.str('REDIS_CONNECTION_STRING', None))
 
 # redis hash table key name
-REDIS_KEY = env.str('PROXYPOOL_REDIS_KEY', env.str('REDIS_KEY', 'proxies:universal'))
+REDIS_KEY = env.str('PROXYPOOL_REDIS_KEY', env.str('REDIS_KEY', 'proxies:syj'))
 
 # definition of proxy scores
 PROXY_SCORE_MAX = 100

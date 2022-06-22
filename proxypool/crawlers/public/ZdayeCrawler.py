@@ -33,10 +33,12 @@ class ZdayeCrawler(BaseCrawler):
     def parse(self, html):
         doc = pq(html)
         contents = doc('#ipc tbody tr').items()
-        # todo syj 待验证
         for content in contents:
-            ip = content.find('td:nth-child(1)').text()
-            port = content.find('td:nth-child(2)').text()
+            # 以下取值中存在&nbsp;处理起来比较麻烦，因此从其他地方获取
+            # ip = content.find('td:nth-child(1)').text().strip()
+            # port = content.find('td:nth-child(2)').text().strip()
+            check_link = content.find('td:nth-child(2) a').attr('href')
+            ip, port = check_link[check_link.rfind('/') + 1:].split(':')
             yield Proxy(host=ip, port=port)
 
 

@@ -11,6 +11,9 @@ for loader, name, is_pkg in pkgutil.walk_packages(__path__):
     module = loader.find_module(name).load_module(name)
     for name, value in inspect.getmembers(module):
         globals()[name] = value
-        if inspect.isclass(value) and issubclass(value, BaseCrawler) and value is not BaseCrawler:
+        # 屏蔽掉目前不可用的代理网站
+        if inspect.isclass(value) and issubclass(value, BaseCrawler) \
+                and value is not BaseCrawler \
+                and name not in('Daili66Crawler','Jiangxianli', 'IhuanCrawler', 'ZdayeCrawler') :
             classes.append(value)
 __all__ = __ALL__ = classes
