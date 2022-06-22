@@ -35,7 +35,7 @@ APP_PROD_METHOD = env.str('APP_PROD_METHOD', APP_PROD_METHOD_GEVENT).lower()
 REDIS_HOST = env.str('PROXYPOOL_REDIS_HOST',
                      env.str('REDIS_HOST', '127.0.0.1'))
 # redis port
-REDIS_PORT = env.int('PROXYPOOL_REDIS_PORT', env.str('REDIS_PORT', 6379))
+REDIS_PORT = env.int('PROXYPOOL_REDIS_PORT', env.str('REDIS_PORT', '6379'))
 # redis password, if no password, set it to None
 REDIS_PASSWORD = env.str('PROXYPOOL_REDIS_PASSWORD',
                          env.str('REDIS_PASSWORD', None))

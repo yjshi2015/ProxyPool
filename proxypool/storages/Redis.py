@@ -8,6 +8,8 @@ from typing import List
 from loguru import logger
 from proxypool.utils.proxy import is_valid_proxy, convert_proxy_or_proxies
 
+# 类名redis是关键字，会跟redis包名冲突，
+# 自定义的类改为Redis，否则redis.__version__会报循环依赖错误！
 REDIS_CLIENT_VERSION = redis.__version__
 IS_REDIS_VERSION_2 = REDIS_CLIENT_VERSION.startswith('2.')
 
@@ -16,8 +18,8 @@ class RedisClient(object):
     """
     redis connection client of proxypool
     """
-
-    def __int__(self, host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, **kwargs):
+    # 初始化函数不是__int__
+    def __init__(self, host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD, **kwargs):
         """
         init redis client
         :param host: redis host
