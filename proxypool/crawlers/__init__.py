@@ -14,6 +14,6 @@ for loader, name, is_pkg in pkgutil.walk_packages(__path__):
         # 屏蔽掉目前不可用的代理网站
         if inspect.isclass(value) and issubclass(value, BaseCrawler) \
                 and value is not BaseCrawler \
-                and name not in('Daili66Crawler','Jiangxianli', 'IhuanCrawler', 'ZdayeCrawler') :
+                and name not in('Daili66Crawler','Jiangxianli', 'IhuanCrawler', 'ZdayeCrawler', 'KuaidailiCrawler') :
             classes.append(value)
 __all__ = __ALL__ = classes

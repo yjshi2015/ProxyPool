@@ -49,4 +49,4 @@ def get_count():
 
 
 if __name__ == '__main__':
-    app.run(host=API_HOST, port=API_HOST, threaded=API_THREADED)
+    app.run(host=API_HOST, port=API_PORT, threaded=API_THREADED)

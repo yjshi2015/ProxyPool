@@ -5,9 +5,10 @@ from proxypool.schemas.proxy import Proxy
 from proxypool.storages.Redis import RedisClient
 from proxypool.setting import TEST_TIMEOUT, TEST_BATCH, TEST_URL, TEST_VALID_STATUS, TEST_ANONYMOUS
 from aiohttp import ClientProxyConnectionError, ServerDisconnectedError, ClientOSError, ClientHttpProxyError
-from asyncio import TimeoutError
+from asyncio.exceptions import TimeoutError
 
 EXCEPTIONS = {
+    BaseException,
     ClientProxyConnectionError,
     ConnectionRefusedError,
     TimeoutError,
@@ -48,10 +49,12 @@ class Tester(object):
                     else:
                         self.redis.decrease(proxy)
                         logger.debug(f'proxy {proxy.string()} is invalid, decrease score')
-            except EXCEPTIONS:
+            # todo syj 异常过于宽泛
+            except Exception:
                 self.redis.decrease(proxy)
                 logger.debug(f'proxy {proxy.string()} is invalid, decrease score')
 
+    @logger.catch
     def run(self):
         logger.info('starting tester......')
         count = self.redis.count()
@@ -68,8 +71,8 @@ class Tester(object):
 
 
 def run_tester():
-    host = '96.113.165.182'
-    port = '3128'
+    host = '180.183.101.72'
+    port = '8080'
     tasks = [tester.test(Proxy(host=host, port=port))]
     tester.loop.run_until_complete(asyncio.wait(tasks))
 
