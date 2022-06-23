@@ -1,4 +1,6 @@
 import asyncio
+import traceback
+
 import aiohttp
 from loguru import logger
 from proxypool.schemas.proxy import Proxy
@@ -15,7 +17,8 @@ EXCEPTIONS = {
     ServerDisconnectedError,
     ClientOSError,
     ClientHttpProxyError,
-    AssertionError
+    AssertionError,
+    Exception
 }
 
 
@@ -50,9 +53,10 @@ class Tester(object):
                         self.redis.decrease(proxy)
                         logger.debug(f'proxy {proxy.string()} is invalid, decrease score')
             # todo syj 异常过于宽泛
-            except Exception:
+            except EXCEPTIONS:
                 self.redis.decrease(proxy)
                 logger.debug(f'proxy {proxy.string()} is invalid, decrease score')
+                # traceback.print_exc()
 
     @logger.catch
     def run(self):
